@@ -66,7 +66,14 @@ describe('Demoblaze - Flujo de compra E2E', () => {
       cy.contains('Amount:').should('exist');
       cy.contains(`Card Number: ${buyer.card}`).should('exist');
     });
-    cy.contains('.sweet-alert button.confirm', 'OK').click();
+    cy.contains('.sweet-alert button.confirm', 'OK').should('be.visible').click();
+    cy.get('.sweet-alert').should('not.be.visible');
+    cy.contains('#orderModal button', 'Close').should('be.visible').click();
+    cy.get('#orderModal').should('not.be.visible');
+
+    cy.get('#nava').click();
+    cy.url().should('eq', `${Cypress.config('baseUrl')}/index.html`);
+    cy.get('#tbodyid').should('be.visible');
   });
 
   function addProductToCart(productName) {
