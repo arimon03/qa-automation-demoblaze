@@ -1,0 +1,33 @@
+CONCLUSIONES Y HALLAZGOS DEL EJERCICIO
+
+1. Automatizacion E2E
+Se automatizo el flujo principal de compra en Demoblaze: ingreso al sitio, seleccion de dos productos, validacion del carrito, diligenciamiento del formulario y confirmacion de compra.
+
+La prueba valida que los productos seleccionados aparezcan en el carrito antes de continuar con la compra. Esto reduce falsos positivos, ya que no basta con hacer clic en los botones; tambien se confirma el estado esperado de la aplicacion.
+
+Las alertas del navegador generadas al agregar productos se manejan con el evento window:alert de Cypress y se valida el mensaje Product added.
+
+2. Automatizacion API
+Se cubrieron los casos solicitados para signup y login usando cy.request.
+
+Para evitar conflictos por usuarios ya existentes, el username se genera dinamicamente con timestamp y numero aleatorio.
+
+El endpoint de signup responde con status 200 tanto para creacion exitosa como para usuario repetido. Por eso, ademas del status code, se valida el contenido del body cuando aplica.
+
+El endpoint de login responde con un Auth_token cuando las credenciales son correctas y con errorMessage cuando la contrasena es incorrecta.
+
+3. Hallazgos
+Demoblaze no utiliza codigos HTTP diferenciados para algunos errores funcionales de API. Por ejemplo, usuario existente o password incorrecto responden HTTP 200 con un mensaje de error en el body. En un API productiva, seria recomendable usar codigos como 400, 401 o 409 segun el caso.
+
+El sitio depende de alertas nativas del navegador para confirmar que un producto fue agregado. Esto funciona para una web de practica, pero en una aplicacion real se recomendaria una confirmacion visible en UI y facilmente testeable.
+
+Al ser un sitio publico, pueden existir variaciones de rendimiento o disponibilidad que afecten la estabilidad de las pruebas. Las pruebas fueron escritas usando aserciones y selectores relativamente estables para reducir esa posibilidad.
+
+4. Recomendaciones
+Mantener separadas las pruebas E2E y API para facilitar ejecuciones independientes.
+
+Agregar ejecucion en CI/CD, por ejemplo con GitHub Actions, si el proyecto se publica en GitHub.
+
+Ampliar la cobertura con casos negativos del formulario de compra, eliminacion de productos del carrito y validaciones adicionales de login/signup.
+
+Usar variables de entorno si en el futuro se agregan credenciales, URLs por ambiente o datos sensibles.

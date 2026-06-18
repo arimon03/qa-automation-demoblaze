@@ -1,0 +1,25 @@
+{
+  "name": "qa-automation-demoblaze",
+  "version": "1.0.0",
+  "description": "Proyecto de automatizacion QA con Cypress y JavaScript para Demoblaze.",
+  "main": "index.js",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test": "cypress run",
+    "test:e2e": "cypress run --spec cypress/e2e/demoblaze-e2e.cy.js",
+    "test:api": "cypress run --spec cypress/e2e/demoblaze-api.cy.js"
+  },
+  "keywords": [
+    "cypress",
+    "qa",
+    "automation",
+    "demoblaze",
+    "javascript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.17.0"
+  }
+}
